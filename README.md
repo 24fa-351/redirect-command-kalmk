@@ -1,2 +1,4 @@
 # 351-redirect
-empty for project
+example:
+  - ./redir input.txt output.txt /usr/bin/wc -l
+  - ./redir input.txt output.txt wc -l
