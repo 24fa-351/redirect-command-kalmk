@@ -1,17 +1,20 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
     if (argc < 4)
     {
-        fprintf(stderr, "Usage: %s <inputFile> <outputFile> <command> <arg1> <arg2> ...\n", argv[0]);
+        fprintf(
+            stderr,
+            "Usage: %s <inputFile> <outputFile> <command> <arg1> <arg2> ...\n",
+            argv[0]);
         return 1;
     }
 
@@ -37,7 +40,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        output_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+        output_fd =
+            open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
         if (output_fd < 0)
         {
             perror("Failed to open output file");
@@ -78,7 +82,8 @@ int main(int argc, char *argv[])
     if (output_fd != STDOUT_FILENO)
         close(output_fd);
     wait(NULL);
-    printf("%s pid is %d. forked %d. Parent exiting\n", argv[0], getpid(), child_pid);
+    printf("%s pid is %d. forked %d. Parent exiting\n", argv[0], getpid(),
+           child_pid);
 
     free(newargv);
     return 0;
